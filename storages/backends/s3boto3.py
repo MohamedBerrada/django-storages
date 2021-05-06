@@ -20,6 +20,8 @@ from storages.utils import (
     setting,
 )
 
+import logging
+
 try:
     import boto3.session
     from botocore.client import Config
@@ -584,7 +586,9 @@ class S3Boto3Storage(BaseStorage):
             root_url = self._strip_signing_parameters(root_url_signed)[:-1]
             # Replace bucket domain with custom domain.
             custom_url = "{}//{}/".format(self.url_protocol, self.custom_domain)
+            logging.info(custom_url)
             url = url.replace(root_url, custom_url)
+            logging.info(url)
 
         if self.querystring_auth:
             return url
