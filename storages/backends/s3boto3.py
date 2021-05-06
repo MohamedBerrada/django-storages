@@ -566,17 +566,12 @@ class S3Boto3Storage(BaseStorage):
                                                              ExpiresIn=expire, HttpMethod=http_method)
 
         if self.custom_domain:
-            # Key parameter can't be empty. Use "/" and remove it later.
-            params['Key'] = '/'
-            root_url_signed = self.bucket.meta.client.generate_presigned_url('get_object',
-                                                                             Params=params,
-                                                                             ExpiresIn=expire)
-            logging.info(root_url_signed)
-            # Remove signing parameter and previouly added key "/".
             root_url = self._strip_signing_parameters(root_url_signed)[:-1]
-            # Replace bucket domain with custom domain.
-            custom_url = "{}//{}/".format(self.url_protocol, self.custom_domain)
-            url = url.replace(root_url, custom_url)
+            url = url.replace(
+                root_url,
+                f"https://{self.custom_domain}",
+            )
+            return url
 
         if self.querystring_auth:
             return url
