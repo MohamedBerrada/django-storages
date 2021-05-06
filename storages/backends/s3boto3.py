@@ -566,7 +566,7 @@ class S3Boto3Storage(BaseStorage):
                                                              ExpiresIn=expire, HttpMethod=http_method)
 
         if self.custom_domain:
-            root_url = self._strip_signing_parameters(root_url_signed)[:-1]
+            root_url = self._strip_signing_parameters(url)[:-1]
             url = url.replace(
                 root_url,
                 f"https://{self.custom_domain}",
