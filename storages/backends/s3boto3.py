@@ -567,10 +567,12 @@ class S3Boto3Storage(BaseStorage):
 
         if self.custom_domain:
             root_url = self._strip_signing_parameters(url)[:-1]
+            logging.info(root_url)
             url = url.replace(
                 root_url,
                 f"https://{self.custom_domain}",
             )
+            logging.info(url)
             return url
 
         if self.querystring_auth:
