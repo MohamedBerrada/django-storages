@@ -567,7 +567,7 @@ class S3Boto3Storage(BaseStorage):
 
         if self.custom_domain:
             # Key parameter can't be empty. Use "/" and remove it later.
-            params['Key'] = '/'
+            # params['Key'] = '/'
             root_url_signed = self.bucket.meta.client.generate_presigned_url('get_object',
                                                                              Params=params,
                                                                              ExpiresIn=expire)
