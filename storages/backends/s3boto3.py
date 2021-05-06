@@ -570,7 +570,7 @@ class S3Boto3Storage(BaseStorage):
 #             logging.info(root_url)
             url = url.replace(
                 'https://s3.eu-west-3.amazonaws.com/storage.staging.usefabriq.com/',
-                f"https://{self.custom_domain}/",
+                f"http://{self.custom_domain}/",
             )
             logging.info(url)
             return url
